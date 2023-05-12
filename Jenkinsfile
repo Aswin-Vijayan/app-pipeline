@@ -23,7 +23,9 @@ pipeline {
 
         stage('Security Scans') {
             steps {
-                sh 'trivy image -f jar:/home/ubuntu/workspace/app/petclinic/target/spring-petclinic-3.0.0-SNAPSHOT.jar'
+                dir("/home/ubuntu/workspace/app/"){
+                sh 'trivy fs petclinic'
+            }
             }
         }
 
