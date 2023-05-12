@@ -7,27 +7,21 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir("/home/ubuntu/workspace/app"){
-                    script {
-                
-                        if (!fileExists(spring-petclinic)) {
-                            sh "git clone https://github.com/spring-projects/spring-petclinic.git"
-                        } else {
-                            echo "Repository already exists. Skipping git clone."
-                        }
-                            sh 'cd spring-petclinic && mvn clean package'
+                dir("/home/ubuntu/workspace/app/spring-petclinic"){
+                            sh 'mvn clean package'
                 }
             }
-        }
         }
 
         stage('Test') {
             steps {
+                dir("/home/ubuntu/workspace/app/spring-petclinic/target"){
                 sh 'mvn test'
             }
         }
+        }
 
-        stage('Security Scans') {
+        stage('Security Scans') 
             steps {
                 sh 'your-code-security-scanner command'
             }
