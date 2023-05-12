@@ -21,7 +21,7 @@ pipeline {
         }
         }
 
-        stage('Security Scans') 
+        stage('Security Scans') {
             steps {
                 sh 'your-code-security-scanner command'
             }
