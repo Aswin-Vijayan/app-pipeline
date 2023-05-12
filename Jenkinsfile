@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/ubuntu/workspace/app/spring-petclinic"){
-                            sh 'mvn clean package'
+                sh 'mvn clean package'
                 }
             }
         }
@@ -74,5 +74,4 @@ pipeline {
             sh 'send-notification-script failure'
         }
     }
-}
 
