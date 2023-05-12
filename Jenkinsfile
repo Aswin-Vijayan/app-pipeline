@@ -8,14 +8,14 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/ubuntu/workspace/app"){
-                script {
+                    script {
                 
-                    if (!fileExists(spring-petclinic)) {
-                        sh "git clone https://github.com/spring-projects/spring-petclinic.git"
-                    } else {
-                        echo "Repository already exists. Skipping git clone."
-                    }
-                        sh 'cd spring-petclinic && mvn clean package'
+                        if (!fileExists(spring-petclinic)) {
+                            sh "git clone https://github.com/spring-projects/spring-petclinic.git"
+                        } else {
+                            echo "Repository already exists. Skipping git clone."
+                        }
+                            sh 'cd spring-petclinic && mvn clean package'
                 }
             }
         }
