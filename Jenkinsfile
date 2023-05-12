@@ -23,7 +23,7 @@ pipeline {
 
         stage('Security Scans') {
             steps {
-                sh 'your-code-security-scanner command'
+                sh 'trivy image -f jar:/home/ubuntu/workspace/app/petclinic/target/spring-petclinic.jar'
             }
         }
 
