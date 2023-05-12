@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir("/home/ubuntu/workspace/app/spring-petclinic"){
+                dir("/home/ubuntu/workspace/app/petclinic"){
                 sh 'mvn clean package'
                 }
             }
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir("/home/ubuntu/workspace/app/spring-petclinic/target"){
+                dir("/home/ubuntu/workspace/app/petclinic/target"){
                 sh 'mvn test'
             }
         }
