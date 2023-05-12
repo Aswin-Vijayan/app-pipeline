@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir("/home/ubuntu/workspace/flask/flask-app"){
+                dir("/home/ubuntu/workspace/app"){
                     sh '''
                     git clone https://github.com/spring-projects/spring-petclinic.git
                     /spring-petclinic mvn clean package
