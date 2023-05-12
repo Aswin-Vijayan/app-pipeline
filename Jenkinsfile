@@ -74,4 +74,5 @@ pipeline {
             sh 'send-notification-script failure'
         }
     }
+}
 
