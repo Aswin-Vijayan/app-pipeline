@@ -15,7 +15,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir("/home/ubuntu/workspace/app/petclinic/target"){
+                dir("/home/ubuntu/workspace/app/petclinic/"){
                 sh 'mvn test'
             }
         }
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Security Scans') {
             steps {
-                sh 'trivy image -f jar:/home/ubuntu/workspace/app/petclinic/target/spring-petclinic.jar'
+                sh 'trivy image -f jar:/home/ubuntu/workspace/app/petclinic/target/spring-petclinic-3.0.0-SNAPSHOT.jar'
             }
         }
 
