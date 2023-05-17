@@ -5,11 +5,12 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+
+        stage('Clone') {
             steps {
                 dir("/home/ubuntu/workspace/app/petclinic/"){
-                sh 'mvn clean package'
-                }
+                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+            }
             }
         }
 
@@ -21,59 +22,75 @@ pipeline {
         }
         }
 
-        stage('Security Scans') {
+        stage('SonarQube Scan') {
             steps {
                 dir("/home/ubuntu/workspace/app/"){
-                sh 'trivy fs petclinic'
+                sh ''
             }
             }
         }
 
-        stage('Deploy Dev') {
-            when {
-                branch 'dev'
-            }
+        stage('Build') {
             steps {
-                // Deploy to Dev environment
-                sh 'your-deployment-command dev'
+                dir("/home/ubuntu/workspace/app/petclinic/"){
+                sh 'mvn clean package'
+                }
             }
         }
 
-        stage('Deploy Staging') {
-            when {
-                branch 'staging'
-            }
-            steps {
-                // Deploy to Staging environment
-                sh 'your-deployment-command staging'
+        stage('Nexus-Artifact Upload'){
+            steps{
+                dir("/home/ubuntu/workspace/app/petclinic/target"){
+                sh''
+                }
             }
         }
 
-        stage('Deploy Production') {
-            when {
-                branch 'master'
-            }
-            steps {
-                // Deploy to Production environment
-                sh 'your-deployment-command production'
+        stage('Build Docker Image'){
+            steps{
+                sh''
             }
         }
 
-        stage('Notify') {
+        stage('Push to DockerHub'){
+            steps{
+                sh''
+            }
+        }
+
+        stage('Deploy in EKS Cluster'){
+            steps{
+                sh''
+            }
+        }
+
+        stage('Notify Slack') {
             steps {
-                // Send build status notifications
-                // Use email, chat notifications, or any other preferred method
-                // Example:
-                sh 'send-notification-script success'
+                script {
+                    def slackWebhookUrl = "<SLACK_WEBHOOK_URL>"
+                    def successMessage = "Your CI/CD pipeline has completed successfully!"
+                    def errorMessage = "Your CI/CD pipeline has encountered an error!"
+
+                    try {
+            // Your pipeline steps here
+            
+            // If everything is successful
+                    slackNotification(slackWebhookUrl, successMessage)
+                    } catch (Exception e) {
+            // Handle error
+            
+            // If an error occurs
+                    slackNotification(slackWebhookUrl, errorMessage)
+                    error("CI/CD pipeline failed due to an error.")
             }
         }
     }
+}
 
-    post {
-        failure {
-            // Send build failure notifications
-            // Example:
-            sh 'send-notification-script failure'
+            def slackNotification(webhookUrl, message) {
+            sh """
+            curl -X POST -H 'Content-type: application/json' --data '{"text": "${message}"}' "${webhookUrl}"
+            """
         }
     }
 }
