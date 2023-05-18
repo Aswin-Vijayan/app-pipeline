@@ -16,10 +16,12 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir("/home/ubuntu/workspace/app/petclinic/"){
-                sh 'mvn test'
+                timeout(time: 15, unit: 'MINUTES') {
+                    dir("/home/ubuntu/workspace/app/petclinic/"){
+                    sh 'mvn test'
+                    }
+                }
             }
-        }
         }
 
         stage('SonarQube Scan') {
