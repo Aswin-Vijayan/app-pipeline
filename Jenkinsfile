@@ -35,7 +35,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir("/home/ubuntu/workspace/app/petclinic/"){
-                sh 'mvn clean package'
+                sh './mvnw package'
                 }
             }
         }
