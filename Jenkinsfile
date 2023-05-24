@@ -4,6 +4,11 @@ pipeline {
     label 'agent-node'
     }
 
+    parameters {
+        string(name: 'VERSION', defaultValue: '1.0.0', description: 'Semantic version number')
+    }
+
+
     stages {
 
         stage('Clone') {
@@ -40,13 +45,18 @@ pipeline {
 
         stage('Build Docker Image'){
             steps{
-                sh''
+                dir("/home/ubuntu/workspace/app/"){
+                sh'docker build -t petclinic:${params.VERSION} .'
+                }
             }
         }
 
         stage('Push to DockerHub'){
             steps{
-                sh''
+                sh'''
+                docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
+                docker push aswinvj/petclinic:${params.VERSION}
+                '''
             }
         }
 
