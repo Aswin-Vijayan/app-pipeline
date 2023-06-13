@@ -22,6 +22,12 @@ pipeline {
             }
         }
 
+        stage('create log file'){
+            steps {
+                sh '''touch /var/log/petclinic.log >/dev/null '''
+            }
+        }
+
         stage('Test') {
             steps {
                 dir(env.directory){
