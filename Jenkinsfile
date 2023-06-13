@@ -24,7 +24,7 @@ pipeline {
 
         stage('create log file'){
             steps {
-                sh '''touch /var/log/petclinic.log >/dev/null '''
+                sh ''' sudo touch /var/log/petclinic.log '''
             }
         }
 
