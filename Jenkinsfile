@@ -17,7 +17,7 @@ pipeline {
         stage('Clone') {
             steps {
                 dir(env.directory){
-                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/Aswin1118/java-spring-petclinic.git'
             }
             }
         }
