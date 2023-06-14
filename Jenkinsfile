@@ -28,6 +28,14 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                dir(env.directory){
+                sh './mvnw package'
+                }
+            }
+        }
+
         stage('Test') {
             steps {
                 dir(env.directory){
@@ -46,14 +54,6 @@ pipeline {
                     -Dsonar.login=sqp_a52a92a70b0f6f1777c8133483a54bba58d0a54c
                 '''
             }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                dir(env.directory){
-                sh './mvnw package'
-                }
             }
         }
 
