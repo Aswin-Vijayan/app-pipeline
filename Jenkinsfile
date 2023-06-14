@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh '''
                 sudo touch /var/log/petclinic.log
-                sudo chmod 644 /var/log/petclinic.log
+                sudo chmod 777 /var/log/petclinic.log
                 '''
             }
         }
