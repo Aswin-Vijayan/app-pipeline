@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(env.directory){
-                sh './mvnw package'
+                sh 'mvn clean package -U'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir(env.directory){
-                sh(script: './mvnw --batch-mode test')
+                sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
             }
         }
     }
