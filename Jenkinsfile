@@ -17,17 +17,8 @@ pipeline {
         stage('Clone') {
             steps {
                 dir(env.directory){
-                git branch: 'main', url: 'https://github.com/Aswin1118/java-spring-petclinic.git'
+                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
             }
-            }
-        }
-
-        stage('create log file'){
-            steps {
-                sh '''
-                sudo touch /var/log/petclinic.log
-                sudo chmod 777 /var/log/petclinic.log
-                '''
             }
         }
 
