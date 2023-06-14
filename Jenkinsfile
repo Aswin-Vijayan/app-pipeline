@@ -24,7 +24,10 @@ pipeline {
 
         stage('create log file'){
             steps {
-                sh ''' sudo touch /var/log/petclinic.log '''
+                sh '''
+                sudo touch /var/log/petclinic.log
+                sudo chmod 644 /var/log/petclinic.log
+                '''
             }
         }
 
