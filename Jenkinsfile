@@ -62,7 +62,7 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 dir("/home/ubuntu/workspace/app/"){
-                sh'docker build -t petclinic:${params.VERSION} .'
+                sh'sudo docker build -t petclinic:${params.VERSION} .'
                 }
             }
         }
@@ -79,6 +79,12 @@ pipeline {
                 docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
                 docker push aswinvj/petclinic:${params.VERSION}
                 '''
+            }
+        }
+
+        stage('Run Docker Image'){
+            steps{
+                sh 'sudo docker run -p 9090:8080 petclinic:${params.VERSION}'
             }
         }
     }
