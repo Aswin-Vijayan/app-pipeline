@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-        directory = '/home/ubuntu/workspace/app/petclinic/'
+        directory = '/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/'
     }
 
     stages {
