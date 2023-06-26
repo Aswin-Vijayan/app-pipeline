@@ -17,7 +17,7 @@ pipeline {
         stage('Clone') {
             steps {
                 dir(env.directory){
-                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+                    git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
             }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(env.directory){
-                sh 'mvn clean package -U'
+                    sh 'mvn clean package -U'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir(env.directory){
-                sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+                    sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
             }
         }
     }
@@ -41,22 +41,31 @@ pipeline {
         stage('SonarQube Scan') {
             steps {
                 dir(env.directory){
-                sh '''
-                mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=sonar-jenkins \
-                    -Dsonar.host.url=http://35.89.62.189:9000 \
-                    -Dsonar.login=sqp_a52a92a70b0f6f1777c8133483a54bba58d0a54c
-                '''
-            }
+                    withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh '''
+                        mvn clean verify sonar:sonar \
+                            -Dsonar.projectKey=sonarqube-petclinic_app \
+                            -Dsonar.organization=sonarqube-petclinic\
+                            -Dsonar.host.url=https://sonarcloud.io \
+                            -Dsonar.login=$SONAR_TOKEN
+                    '''
+                }
             }
         }
+    }
 
         stage('Nexus-Artifact Upload'){
             steps{
-                dir(env.directory + "target"){
-                sh''
+                    withCredentials([usernamePassword(credentialsId: 'NEXUS-LOGIN', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    dir(env.directory + "target"){
+                        sh '''
+                            curl -v -u ${USERNAME}:${PASSWORD} \
+                            --upload-file spring-petclinic.jar \
+                            http://35.89.2.21:8081/repository/maven-public/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
+                        '''
                 }
             }
+        }
         }
 
         stage('Build Docker Image'){
