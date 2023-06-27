@@ -8,11 +8,15 @@ pipeline {
         string(name: 'VERSION', defaultValue: '1.0.0', description: 'Semantic version number')
     }
 
+    environment {
+        directory = '/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/'
+    }
+
     stages {
 
         stage('Clone') {
             steps {
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
+                dir(env.directory){
                     git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
             }
             }
@@ -20,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
+                dir(env.directory){
                     sh 'mvn clean install -Dmaven.test.skip=true'
                 }
             }
@@ -28,7 +32,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
+                dir(env.directory){
                     sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
             }
         }
@@ -36,7 +40,7 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
+                dir(env.directory){
                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                     sh '''
                         mvn clean verify sonar:sonar \
@@ -53,7 +57,7 @@ pipeline {
         stage('Nexus-Artifact Upload'){
             steps{
                     withCredentials([usernamePassword(credentialsId: 'NEXUS-LOGIN', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/target"){
+                    dir(env.directory + "target"){
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
                             --upload-file spring-petclinic.jar \
