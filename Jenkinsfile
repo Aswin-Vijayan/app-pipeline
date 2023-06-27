@@ -16,7 +16,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                dir(env.directory){
+                dir(directory){
                     git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
             }
             }
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir(env.directory){
+                dir(directory){
                     sh 'mvn clean install -Dmaven.test.skip=true'
                 }
             }
