@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-        directory = "/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"
+        directory = '/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/'
     }
 
     stages {
@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(directory){
-                    sh 'mvn clean install -Dmaven.test.skip=true'
+                    sh './mvnw package -Dmaven.test.skip=true'
                 }
             }
         }
