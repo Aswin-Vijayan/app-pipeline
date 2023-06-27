@@ -24,11 +24,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir(env.directory){
                     sh 'mvn clean install -Dmaven.test.skip=true'
                 }
             }
-        }
 
         stage('Test') {
             steps {
