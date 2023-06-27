@@ -8,15 +8,11 @@ pipeline {
         string(name: 'VERSION', defaultValue: '1.0.0', description: 'Semantic version number')
     }
 
-    environment {
-        directory = '/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/'
-    }
-
     stages {
 
         stage('Clone') {
             steps {
-                dir(env.directory){
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
                     git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
             }
             }
@@ -24,7 +20,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir(env.directory){
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
                     sh 'mvn clean install -Dmaven.test.skip=true'
                 }
             }
@@ -32,7 +28,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir(env.directory){
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
                     sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
             }
         }
@@ -40,7 +36,7 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                dir(env.directory){
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                     sh '''
                         mvn clean verify sonar:sonar \
@@ -57,7 +53,7 @@ pipeline {
         stage('Nexus-Artifact Upload'){
             steps{
                     withCredentials([usernamePassword(credentialsId: 'NEXUS-LOGIN', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    dir(env.directory + "target"){
+                    dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/target"){
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
                             --upload-file spring-petclinic.jar \
@@ -70,7 +66,7 @@ pipeline {
 
         stage('Build Docker Image'){
             steps{
-                dir("/home/ubuntu/workspace/app/"){
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
                 sh'sudo docker build -t petclinic:${params.VERSION} .'
                 }
             }
