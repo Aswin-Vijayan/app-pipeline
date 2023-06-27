@@ -43,7 +43,7 @@ pipeline {
                 dir(directory){
                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                     sh '''
-                        mvn clean verify sonar:sonar \
+                        mvn sonar:sonar \
                             -Dsonar.projectKey=sonarqube-petclinic_app \
                             -Dsonar.organization=sonarqube-petclinic\
                             -Dsonar.host.url=https://sonarcloud.io \
