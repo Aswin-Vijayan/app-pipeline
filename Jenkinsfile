@@ -32,7 +32,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir(env.directory){
+                dir(directory){
                     sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
             }
         }
@@ -40,7 +40,7 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                dir(env.directory){
+                dir(directory){
                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                     sh '''
                         mvn clean verify sonar:sonar \
@@ -57,7 +57,7 @@ pipeline {
         stage('Nexus-Artifact Upload'){
             steps{
                     withCredentials([usernamePassword(credentialsId: 'NEXUS-LOGIN', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    dir(env.directory + "target"){
+                    dir(directory + "target"){
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
                             --upload-file spring-petclinic.jar \
