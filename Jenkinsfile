@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/"){
+                dir(env.directory){
                     sh 'mvn clean install -Dmaven.test.skip=true'
                 }
             }
