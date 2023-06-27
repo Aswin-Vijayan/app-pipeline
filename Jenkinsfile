@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(env.directory){
-                    sh 'mvn clean package -U'
+                    sh 'mvn clean install'
                 }
             }
         }
