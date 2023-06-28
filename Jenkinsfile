@@ -85,10 +85,15 @@ pipeline {
 
         stage('Push to DockerHub'){
             steps{
-                sh'''
-                    sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
-                    sudo docker push aswinvj/petclinic:${params.VERSION}
-                '''
+                scripts {
+                    def dockerHubCredentials = 'docker-hub' # DockerHub credentials
+                    docker.withRegistry('https://index.docker.io/v1/', dockerHubCredentials) {
+                        sh'''
+                            sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
+                            sudo docker push aswinvj/petclinic:${params.VERSION}
+                        '''
+                    }
+                }
             }
         }
 
