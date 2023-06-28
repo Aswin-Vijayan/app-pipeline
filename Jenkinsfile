@@ -72,7 +72,7 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
-                sh'sudo docker build -t petclinic:${params.VERSION} .'
+                sh "sudo docker build -t petclinic:${params.VERSION} ."
                 }
             }
         }
