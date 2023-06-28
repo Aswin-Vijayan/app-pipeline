@@ -86,8 +86,8 @@ pipeline {
         stage('Push to DockerHub'){
             steps{
                 sh'''
-                docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
-                docker push aswinvj/petclinic:${params.VERSION}
+                    sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
+                    sudo docker push aswinvj/petclinic:${params.VERSION}
                 '''
             }
         }
