@@ -9,6 +9,7 @@ pipeline {
     }
 
     environment {
+        PATH = "$PATH:/opt/apache-maven-3.9.3/bin"
         directory = '/home/ubuntu/workspace/APPLICATION PIPELINES/app/petclinic/'
     }
 
