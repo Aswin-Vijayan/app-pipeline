@@ -79,7 +79,7 @@ pipeline {
 
         stage('Scan Image') {
             steps {
-                sh 'sudo trivy image petclinic:${params.VERSION} >> ~/workspace/app/petclinic:${params.VERSION}.output.txt'
+                sh 'sudo trivy image petclinic:${params.VERSION} >> /home/ubuntu/petclinic:${params.VERSION}.output.txt'
             }
         }
 
