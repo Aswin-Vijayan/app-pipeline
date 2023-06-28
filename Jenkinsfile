@@ -88,10 +88,8 @@ pipeline {
                 script {
                     def dockerHubCredentials = 'docker-hub' // dockerhub credentials
                     docker.withRegistry('https://index.docker.io/v1/', dockerHubCredentials) {
-                        sh'''
-                            sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
-                            sudo docker push aswinvj/petclinic:${params.VERSION}
-                        '''
+                        sh"sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}"
+                        sh"sudo docker push aswinvj/petclinic:${params.VERSION}"
                     }
                 }
             }
