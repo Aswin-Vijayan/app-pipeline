@@ -85,12 +85,12 @@ pipeline {
 
         stage('Push to DockerHub'){
             steps{
-                script {
-                    def dockerHubCredentials = 'docker-hub' // dockerhub credentials
-                    docker.withRegistry('https://index.docker.io/v1/', dockerHubCredentials) {
-                        sh"sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}"
-                        sh"sudo docker push aswinvj/petclinic:${params.VERSION}"
-                    }
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh '''
+                    echo '${PASSWORD}' | docker login --username '${USERNAME}' --password-stdin
+                    sudo docker tag petclinic:${params.VERSION} '${USERNAME}'/petclinic:${params.VERSION}
+                    sudo docker push '${USERNAME}'/petclinic:${params.VERSION}
+                    '''
                 }
             }
         }
