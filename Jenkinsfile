@@ -61,8 +61,8 @@ pipeline {
                     dir(directory + "target"){
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
-                            --upload-file spring-petclinic.jar \
-                            http://35.89.2.21:8081/repository/maven-public/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
+                            --upload-file spring-petclinic-3.1.0-SNAPSHOT.jar \
+                            http://18.237.155.109:8081/repository/maven-public/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
                         '''
                 }
             }
