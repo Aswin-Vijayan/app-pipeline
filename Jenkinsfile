@@ -71,13 +71,13 @@ pipeline {
 
         stage('Validating'){
             steps{
-                sh 'packer validate app/vm.pkr.hcl'
+                sh 'packer validate /app/vm.pkr.hcl'
                     }
                 }
 
         stage('Create AMI') {
             steps {
-                sh 'packer build app/vm.pkr.hcl'
+                sh 'packer build /app/vm.pkr.hcl'
                 
             }
         }
