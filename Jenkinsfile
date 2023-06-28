@@ -86,7 +86,7 @@ pipeline {
         stage('Push to DockerHub'){
             steps{
                 scripts {
-                    def dockerHubCredentials = 'docker-hub' # DockerHub credentials
+                    def dockerHubCredentials = 'docker-hub' // dockerhub credentials
                     docker.withRegistry('https://index.docker.io/v1/', dockerHubCredentials) {
                         sh'''
                             sudo docker tag petclinic:${params.VERSION} aswinvj/petclinic:${params.VERSION}
