@@ -69,36 +69,19 @@ pipeline {
         }
         }
 
-        stage('Build Docker Image'){
+        stage('Validating'){
             steps{
-                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
-                sh "sudo docker build -t petclinic:${params.VERSION} ."
+                sh 'packer validate app/vm.pkr.hcl'
+                    }
                 }
-            }
-        }
 
-        stage('Scan Image') {
+        stage('Create AMI') {
             steps {
-                sh "sudo trivy image petclinic:${params.VERSION} >> /home/ubuntu/petclinic:${params.VERSION}.output.txt"
-            }
-        }
-
-        stage('Push to DockerHub'){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                        echo ${PASSWORD} | sudo docker login --username ${USERNAME} --password-stdin
-                        sudo docker tag petclinic:${params.VERSION} ${USERNAME}/petclinic:${params.VERSION}
-                        sudo docker push '${USERNAME}'/petclinic:${params.VERSION}
-                    """
-                }
-            }
-        }
-
-        stage('Run Docker Image'){
-            steps{
-                sh "sudo docker run -d -p 9090:8080 petclinic:${params.VERSION}"
+                sh 'packer build app/vm.pkr.hcl'
+                
             }
         }
     }
 }
+
+        
