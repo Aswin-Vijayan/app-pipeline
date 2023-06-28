@@ -85,7 +85,7 @@ pipeline {
 
         stage('Push to DockerHub'){
             steps{
-                scripts {
+                script {
                     def dockerHubCredentials = 'docker-hub' // dockerhub credentials
                     docker.withRegistry('https://index.docker.io/v1/', dockerHubCredentials) {
                         sh'''
