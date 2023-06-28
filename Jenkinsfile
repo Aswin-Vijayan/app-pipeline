@@ -26,7 +26,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(directory){
-                    sh './mvnw package -Dmaven.test.skip=true'
+                    sh './mvn clean install -Dmaven.test.skip=true'
                 }
             }
         }
