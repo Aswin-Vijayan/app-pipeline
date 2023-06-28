@@ -71,14 +71,17 @@ pipeline {
 
         stage('Validating'){
             steps{
-                sh 'packer validate /app/vm.pkr.hcl'
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
+                sh 'packer validate vm.pkr.hcl'
                     }
                 }
+        }
 
         stage('Create AMI') {
             steps {
-                sh 'packer build /app/vm.pkr.hcl'
-                
+                dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
+                sh 'packer build vm.pkr.hcl'
+                }
             }
         }
     }
