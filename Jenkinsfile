@@ -87,7 +87,7 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
-                    echo '${PASSWORD}' | docker login --username '${USERNAME}' --password-stdin
+                    echo '${PASSWORD}' | sudo docker login --username '${USERNAME}' --password-stdin
                     sudo docker tag petclinic:${params.VERSION} '${USERNAME}'/petclinic:${params.VERSION}
                     sudo docker push '${USERNAME}'/petclinic:${params.VERSION}
                     '''
