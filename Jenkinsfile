@@ -79,7 +79,7 @@ pipeline {
 
         stage('Scan Image') {
             steps {
-                sh 'sudo trivy image petclinic:${params.VERSION} >> /home/ubuntu/petclinic:${params.VERSION}.output.txt'
+                sh "sudo trivy image petclinic:${params.VERSION} >> /home/ubuntu/petclinic:${params.VERSION}.output.txt"
             }
         }
 
@@ -94,7 +94,7 @@ pipeline {
 
         stage('Run Docker Image'){
             steps{
-                sh 'sudo docker run -p 9090:8080 petclinic:${params.VERSION}'
+                sh "sudo docker run -p 9090:8080 petclinic:${params.VERSION}"
             }
         }
     }
