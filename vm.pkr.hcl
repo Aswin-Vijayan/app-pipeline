@@ -24,9 +24,7 @@ build {
 
   provisioner "ansible" {
     playbook_file = "ami.yml"
-    extra_vars = {
-      consul_server_address = var.consul.server.ip
+    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul.server.ip}"]
     }
   }
 
-}
