@@ -18,7 +18,7 @@ pipeline {
         stage('Clone') {
             steps {
                 dir(directory){
-                    git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+                    git branch: 'main', url: 'https://github.com/techiescamp/java-spring-petclinic.git'
             }
             }
         }
@@ -26,7 +26,11 @@ pipeline {
         stage('Build') {
             steps {
                 dir(directory){
-                    sh './mvnw package -Dmaven.test.skip=true'
+                    sh """
+                    sudo touch /var/log/petclinic.log
+                    sudo chmod 777 /var/log/petclinic.log
+                    ./mvnw package -Dmaven.test.skip=true
+                    """
                 }
             }
         }
@@ -62,7 +66,7 @@ pipeline {
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
                             --upload-file spring-petclinic-3.1.0-SNAPSHOT.jar \
-                            http://18.237.155.109:8081/repository/maven-public/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
+                            http://35.91.114.251:8081/repository/maven-releases/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
                         '''
                 }
             }
@@ -80,7 +84,7 @@ pipeline {
         stage('Create AMI') {
             steps {
                 dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
-                sh 'packer build vm.pkr.hcl'
+                sh 'packer build -var "consul.server.ip =34.209.232.10"  vm.pkr.hcl'
                 }
             }
         }
