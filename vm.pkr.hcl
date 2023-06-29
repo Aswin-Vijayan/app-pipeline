@@ -19,12 +19,17 @@ source "amazon-ebs" "nginx" {
   }
 }
 
+variable "consul_server_ip" {
+  type    = string
+  default = ""
+}
+
 build {
   sources = ["source.amazon-ebs.nginx"]
 
   provisioner "ansible" {
     playbook_file = "ami.yml"
-    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul.server.ip}"]
+    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul_server_ip}"]
     }
   }
 

@@ -84,7 +84,7 @@ pipeline {
         stage('Create AMI') {
             steps {
                 dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
-                sh 'packer build -var "consul.server.ip =34.209.232.10"  vm.pkr.hcl'
+                sh 'packer build -var "consul_server_ip =34.209.232.10"  vm.pkr.hcl'
                 }
             }
         }
