@@ -8,14 +8,14 @@ locals {
 }
 
 source "amazon-ebs" "nginx" {
-  ami_name      = "{local.app_name}"
+  ami_name      = "${local.app_name}"
   instance_type = "t2.micro"
   region        = "us-west-2"
   source_ami    = "${var.ami_id}"
   ssh_username  = "ubuntu"
   tags = {
     Env  = "DEMO"
-    Name = "{local.app_name}"
+    Name = "${local.app_name}"
   }
 }
 
