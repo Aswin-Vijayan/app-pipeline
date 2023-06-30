@@ -10,6 +10,7 @@
     apt:
       name: openjdk-17-jre
       state: latest
+      force: yes
 
   - name: Create log file
     file:
