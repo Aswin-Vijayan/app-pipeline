@@ -43,8 +43,3 @@
     template:
       src: backend.hcl.j2
       dest: /etc/consul.d/backend.hcl
-  
-  - name: Start Consul Agent Template
-    shell: sudo consul agent -config-dir /etc/consul.d/ &
-    register: consul_start
-    ignore_errors: true
