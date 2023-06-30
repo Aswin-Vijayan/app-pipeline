@@ -66,7 +66,7 @@ pipeline {
                         sh '''
                             curl -v -u ${USERNAME}:${PASSWORD} \
                             --upload-file spring-petclinic-3.1.0-SNAPSHOT.jar \
-                            http://35.91.114.251:8081/repository/maven-releases/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
+                            http://54.244.121.108:8081/repository/maven-releases/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar
                         '''
                 }
             }
@@ -84,7 +84,7 @@ pipeline {
         stage('Create AMI') {
             steps {
                 dir("/home/ubuntu/workspace/APPLICATION PIPELINES/app/"){
-                sh 'packer build -var "consul_server_ip=34.209.232.10" vm.pkr.hcl'
+                sh 'packer build -var "consul_server_ip=44.230.25.63" vm.pkr.hcl'
                 }
             }
         }

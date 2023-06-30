@@ -13,7 +13,7 @@ credentials=$(aws secretsmanager get-secret-value --secret-id /dev/nexus-login -
 username=$(echo "$credentials" | jq -r '.["username"]')
 password=$(echo "$credentials" | jq -r '.["password"]')
 
-curl -u "$username:$password" -O http://35.91.114.251:8081/repository/maven-releases/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar /home/ubuntu
+curl -u "$username:$password" -O http://54.244.121.108:8081/repository/maven-releases/petclinic-jarfile/org/springframework/boot/petclinic/3.0.7/petclinic-3.0.7.jar /home/ubuntu
 
 # to run python script
 python3 ${PROPERTIES_SCRIPT}
