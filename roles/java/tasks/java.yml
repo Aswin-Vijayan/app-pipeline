@@ -5,10 +5,12 @@
       update_cache: yes
 
 - name: Install JDK
-  become: true
   apt:
-      name: openjdk-11-jdk
-      state: present
+    name: openjdk-17-jdk
+    state: present
+    update_cache: yes
+    options: "--fix-broken"
+
 
 - name: Create log file
   become: true
