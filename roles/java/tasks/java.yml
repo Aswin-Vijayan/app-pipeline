@@ -7,10 +7,7 @@
 
 - name: Fix broken packages
   become: true
-  apt:
-    name: ""
-    state: present
-    fix_broken: yes
+  command: apt --fix-broken install -y
 
 - name: Install JRE
   become: true
