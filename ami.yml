@@ -10,7 +10,7 @@
     files:
       - config.yml
       - properties.py
-      - script.sh
+      - start.sh
 
   roles:
     - java
