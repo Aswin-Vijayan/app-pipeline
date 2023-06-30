@@ -35,7 +35,12 @@ build {
 
   provisioner "ansible" {
     playbook_file = "ami.yml"
-    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul_server_ip}", "public_key_path=${var.public_key_path}",  "--scp-extra-args", "'-O'", "--ssh-extra-args", "-o IdentitiesOnly=yes -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"]
+    extra_arguments = [
+    "--extra-vars", "consul_server_address=${var.consul_server_ip}",
+    "public_key_path=${var.public_key_path}",
+    "--scp-extra-args", "'-O'",
+    "--ssh-extra-args", "-o IdentitiesOnly=yes -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"
+      ]
     }
   }
 
