@@ -5,6 +5,13 @@
     upgrade: yes
     update_cache: yes
 
+- name: Fix broken packages
+  become: true
+  apt:
+    name: ""
+    state: present
+    fix_broken: yes
+
 - name: Install JRE
   become: true
   apt:
