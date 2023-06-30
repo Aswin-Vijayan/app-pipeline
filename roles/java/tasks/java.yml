@@ -5,9 +5,26 @@
     upgrade: yes
     update_cache: yes
 
-- name: Fix broken packages
+- name: Install JRE Dependencies
   become: true
-  command: apt --fix-broken install -y
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libgtk2.0-0
+    - libgtk-3-0
+    - libxrandr2
+    - libxinerama1
+    - libgl1
+    - libharfbuzz0b
+    - libgif7
+    - libjpeg8
+    - libxi6
+    - libxrender1
+    - libxtst6
+    - libatk-wrapper-java-jni
+    - fonts-dejavu-extra
+
 
 - name: Install JRE
   become: true
