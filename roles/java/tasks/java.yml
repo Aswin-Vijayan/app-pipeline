@@ -1,36 +1,14 @@
 ---
-- name: Update and upgrade apt packages
+- name: Update package lists
   become: true
   apt:
-    upgrade: yes
-    update_cache: yes
+      update_cache: yes
 
-- name: Install JRE Dependencies
+- name: Install JDK
   become: true
   apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - libgtk2.0-0
-    - libgtk-3-0
-    - libxrandr2
-    - libxinerama1
-    - libgl1
-    - libharfbuzz0b
-    - libgif7
-    - libjpeg8
-    - libxi6
-    - libxrender1
-    - libxtst6
-    - libatk-wrapper-java-jni
-    - fonts-dejavu-extra
-
-
-- name: Install JRE
-  become: true
-  apt:
-    name: openjdk-17-jre
-    state: latest
+      name: default-jdk
+      state: present
 
 - name: Create log file
   become: true
