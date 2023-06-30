@@ -4,12 +4,6 @@
       msg: "The operating system is {{ ansible_facts['os_family'] }}"
     when: ansible_facts['os_family'] == "Debian"
   
-  - name: Update and upgrade apt packages
-    become: true
-    apt:
-      upgrade: yes
-      update_cache: yes
-  
   - name: Install Nginx on Server
     apt: 
       name: nginx 

@@ -3,15 +3,12 @@
   copy:
     src: "{{ source_dir }}/{{ item }}"
     dest: "{{ dest_dir }}/{{ item }}"
-    remote_src: yes
   with_items: "{{ files }}"
 
 - name: Copy files
   copy:
     src: files/application.properties
     dest: /opt/application.properties
-    remote_src: yes
-
 
 - name: Make start.sh script executable
   become: true
