@@ -9,8 +9,6 @@
     name: openjdk-17-jdk
     state: present
     update_cache: yes
-    options: "--fix-broken"
-
 
 - name: Create log file
   become: true
