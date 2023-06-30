@@ -1,38 +1,39 @@
 ---
-  - name: Update and upgrade apt packages
-    become: true
-    apt:
-        upgrade: yes
-        update_cache: yes
-  
-  - name: Install JRE Dependencies
-    become: true
-    apt:
-      name: "{{ item }}"
-      state: present
-    with_items:
-      - libgtk2.0-0
-      - libgtk-3-0
-      - libxrandr2
-      - libxinerama1
-      - libgl1
-      - libharfbuzz0b
-      - libgif7
-      - libjpeg8
-      - libxi6
-      - libxrender1
-      - libxtst6
-      - libatk-wrapper-java-jni
-      - fonts-dejavu-extra
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
 
-  - name: Install JRE
-    become: true
-    apt:
-      name: openjdk-17-jre
-      state: latest
+- name: Install JRE Dependencies
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libgtk2.0-0
+    - libgtk-3-0
+    - libxrandr2
+    - libxinerama1
+    - libgl1
+    - libharfbuzz0b
+    - libgif7
+    - libjpeg8
+    - libxi6
+    - libxrender1
+    - libxtst6
+    - libatk-wrapper-java-jni
+    - fonts-dejavu-extra
 
-  - name: Create log file
-    file:
-        path: /var/log/petclinic.log
-        state: touch
-        mode: '0777'
+- name: Install JRE
+  become: true
+  apt:
+    name: openjdk-17-jre
+    state: latest
+
+- name: Create log file
+  become: true
+  file:
+    path: /var/log/petclinic.log
+    state: touch
+    mode: '0777'
