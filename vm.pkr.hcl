@@ -3,6 +3,11 @@ variable "ami_id" {
   default = "ami-0735c191cf914754d"
 }
 
+variable "public_key_path" {
+    type = string
+    default = "/devops-tools/jenkins/id_rsa.pub"
+}
+
 locals {
     app_name = "pet-clinic"
 }
@@ -13,6 +18,7 @@ source "amazon-ebs" "nginx" {
   region        = "us-west-2"
   source_ami    = "${var.ami_id}"
   ssh_username  = "ubuntu"
+  iam_instance_profile = "instance_role"
   tags = {
     Env  = "DEMO"
     Name = "${local.app_name}"
@@ -29,7 +35,7 @@ build {
 
   provisioner "ansible" {
     playbook_file = "ami.yml"
-    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul_server_ip}"]
+    extra_arguments = ["--extra-vars", "consul_server_address=${var.consul_server_ip}", "public_key_path=${var.public_key_path}",  "--scp-extra-args", "'-O'", "--ssh-extra-args", "-o IdentitiesOnly=yes -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"]
     }
   }
 
