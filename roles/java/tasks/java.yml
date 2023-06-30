@@ -7,7 +7,7 @@
 - name: Install JDK
   become: true
   apt:
-      name: openjdk-17-jdk
+      name: openjdk-11-jdk
       state: present
 
 - name: Create log file
