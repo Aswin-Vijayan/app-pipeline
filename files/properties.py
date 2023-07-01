@@ -11,7 +11,7 @@ ssm = boto3.client('ssm', region_name=region)
 
 rds_endpoint = ssm.get_parameter(Name=parameter_store)['Parameter']['Value']
 
-secrets_client = boto3.client('secretsmanager')
+secrets_client = boto3.client('secretsmanager', region_name=region)
 
 response = secrets_client.get_secret_value(SecretId=secret_name)
 

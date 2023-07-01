@@ -1,7 +1,7 @@
 #!/bin/bash
 
 JAR_FILE=/home/ubuntu/petclinic-3.0.7.jar
-APP_PROPERTIES=/home/ubuntu/opt/application.properties
+APP_PROPERTIES=/opt/application.properties
 PROPERTIES_SCRIPT=/home/ubuntu/properties.py
 
 # download from s3
