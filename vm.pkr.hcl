@@ -4,7 +4,7 @@ variable "ami_id" {
 }
 
 locals {
-    app_name = "pet-clinic"
+    app_name = "pet_clinic"
 }
 
 source "amazon-ebs" "nginx" {
