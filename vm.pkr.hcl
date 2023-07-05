@@ -29,7 +29,7 @@ build {
   sources = ["source.amazon-ebs.nginx"]
 
   provisioner "file" {
-    source = "files/spring-petclinic-3.0.7.jar"
+    source = "files/petclinic-3.0.7.jar"
     destination = "/home/ubuntu/spring-petclinic-3.0.7.jar"
   }
 
