@@ -30,7 +30,7 @@ build {
 
   provisioner "file" {
     source = "files/petclinic-3.0.7.jar"
-    destination = "/home/ubuntu/spring-petclinic-3.0.7.jar"
+    destination = "/home/ubuntu/petclinic-3.0.7.jar"
   }
 
   provisioner "file" {
