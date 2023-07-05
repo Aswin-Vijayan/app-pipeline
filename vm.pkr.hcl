@@ -28,6 +28,16 @@ variable "consul_server_ip" {
 build {
   sources = ["source.amazon-ebs.nginx"]
 
+  provisioner "file" {
+    source = "files/spring-petclinic-3.0.7.jar"
+    destination = "/home/ubuntu/spring-petclinic-3.0.7.jar"
+  }
+
+  provisioner "file" {
+    source = "files/jmx_prometheus_javaagent-0.18.0.jar"
+    destination = "/home/ubuntu/jmx_prometheus_javaagent-0.18.0.jar"
+  }
+
   provisioner "ansible" {
     playbook_file = "ami.yml"
     extra_arguments = [
