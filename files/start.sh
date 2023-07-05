@@ -11,5 +11,6 @@ sudo python3 ${PROPERTIES_SCRIPT}
 sudo nohup consul agent -config-dir /etc/consul.d/ &
 
 # start jmx and petclinic application jar file
-sudo java -jar ${JAR_FILE} --spring.config.location=${APP_PROPERTIES} --spring.profiles.active=mysql & \
-java -javaagent:/home/ubuntu/jmx_prometheus_javaagent-0.18.0.jar=9090:/home/ubuntu/config.yml -jar ${JAR_FILE} &
+sudo java -jar ${JAR_FILE} --spring.config.location=${APP_PROPERTIES} --spring.profiles.active=mysql &
+
+sudo java -javaagent:/home/ubuntu/jmx_prometheus_javaagent-0.18.0.jar=9090:/home/ubuntu/config.yml
