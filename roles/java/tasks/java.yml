@@ -11,6 +11,20 @@
     state: present
     update_cache: yes
 
+- name: Install dependencies
+  become: true
+  apt:
+    name:
+      - apt-transport-https
+      - curl
+      - unzip
+      - gnupg
+      - wget
+      - software-properties-common
+      - jq
+    state: present
+
+
 - name: Create log file
   become: true
   file:
