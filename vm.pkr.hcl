@@ -7,7 +7,7 @@ locals {
     app_name = "pet-clinic"
 }
 
-source "amazon-ebs" "nginx" {
+source "amazon-ebs" "petclinic" {
   ami_name      = "${local.app_name}"
   instance_type = "t2.micro"
   region        = "us-west-2"
@@ -26,7 +26,7 @@ variable "consul_server_ip" {
 }
 
 build {
-  sources = ["source.amazon-ebs.nginx"]
+  sources = ["source.amazon-ebs.petclinic"]
 
   provisioner "file" {
     source = "files/petclinic-3.0.7.jar"
